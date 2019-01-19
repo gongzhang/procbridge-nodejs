@@ -1,0 +1,18 @@
+{
+  "name": "procbridge",
+  "version": "1.0.0",
+  "description": "A super-lightweight IPC (Inter-Process Communication) protocol over TCP socket.",
+  "main": "src/index.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gongzhang/procbridge-nodejs.git"
+  },
+  "author": "Gong Zhang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gongzhang/procbridge-nodejs/issues"
+  },
+  "homepage": "https://github.com/gongzhang/procbridge-nodejs#readme"
+}
