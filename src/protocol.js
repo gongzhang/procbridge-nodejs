@@ -1,5 +1,5 @@
 const { Reader, convertIntToLittleEndianBuffer, convertLittleEndianBufferToInt } = require('./utils')
-const { PB_FLAG, RESERVED, Version, Keys, StatusCode} = require('./const')
+const { PB_FLAG, RESERVED, Version, Keys, StatusCode } = require('./const')
 const { Messages, ProtocolError } = require('./errors')
 
 

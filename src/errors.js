@@ -21,4 +21,4 @@ class ServerError extends Error {
     }
 }
 
-module.exports = ProtocolError, ServerError, Messages
+module.exports = { ProtocolError, ServerError, Messages }
