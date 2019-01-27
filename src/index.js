@@ -30,3 +30,51 @@ class Client {
   
 }
 
+class Server {
+  
+  constructor(host, port, delegate) {
+    this.host = host
+    this.port = port
+    this.delegate = delegate
+    this.server = null
+  }
+  
+  start() {
+    if (this.server !== null) {
+      return
+    }
+    this.server = net.createServer(async socket => {
+      const { method, payload } = await protocol.readRequest(socket)
+      try {
+        const ret = this.delegate(method, payload)
+        protocol.writeGoodResponse(socket, ret)
+      } catch (err) {
+        protocol.writeBadResponse(socket, err.message || err)
+      } finally {
+        socket.destroy()
+      }
+    })
+    
+    try {
+      this.server.listen(this.port, this.host)
+    } catch (err) {
+      this.server = null
+      throw err
+    }
+  }
+  
+  stop() {
+    if (this.server === null) {
+      return
+    }
+    this.server.close()
+    this.server = null
+  }
+  
+}
+
+
+module.exports = {
+  Client, Server, ServerError
+}
+
