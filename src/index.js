@@ -45,12 +45,25 @@ class Server {
     }
     this.server = net.createServer(async socket => {
       const { method, payload } = await protocol.readRequest(socket)
+      let ret
       try {
-        const ret = this.delegate(method, payload)
-        protocol.writeGoodResponse(socket, ret)
+        ret = this.delegate(method, payload)
       } catch (err) {
         protocol.writeBadResponse(socket, err.message || err)
-      } finally {
+        socket.destroy()
+        return
+      }
+
+      if (ret !== undefined  && ret !== null && typeof ret.then == 'function') {
+        ret.then(result => {
+          protocol.writeGoodResponse(socket, result)
+          socket.destroy()
+        }).catch(err => {
+          protocol.writeBadResponse(socket, err.message || err)
+          socket.destroy()
+        })
+      } else {
+        protocol.writeGoodResponse(socket, ret)
         socket.destroy()
       }
     })
@@ -77,4 +90,3 @@ class Server {
 module.exports = {
   Client, Server, ServerError
 }
-

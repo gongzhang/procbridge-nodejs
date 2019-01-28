@@ -4,6 +4,7 @@
   "description": "A super-lightweight IPC (Inter-Process Communication) protocol over TCP socket.",
   "main": "src/index.js",
   "scripts": {
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -14,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/gongzhang/procbridge-nodejs/issues"
   },
-  "homepage": "https://github.com/gongzhang/procbridge-nodejs#readme"
+  "homepage": "https://github.com/gongzhang/procbridge-nodejs#readme",
+  "devDependencies": {
+    "mocha": "^5.2.0",
+    "should": "^13.2.3"
+  }
 }
