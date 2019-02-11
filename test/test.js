@@ -4,7 +4,6 @@ const fs = require('fs')
 const { Server, Client } = require('../src/index')
 
 
-
 const server = new Server('0.0.0.0', 8000, (method, payload) => {
   switch (method) {
     case 'echo':
@@ -67,7 +66,7 @@ describe('procbridge', () => {
     }
   })
 
-  it('bitPayload', async () => {
+  it('bigPayload', async () => {
     const txt = fs.readFileSync('./test/article.txt', {encoding: 'utf8'})
     let reply = await client.request('echo', txt)
     should(reply).be.exactly(txt)
