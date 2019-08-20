@@ -1,6 +1,6 @@
 # procbridge-nodejs
 
-ProcBridge is a super-lightweight IPC (Inter-Process Communication) protocol over TCP socket. It enables you to **send and recieve JSON** between processes easily. ProcBridge is much like a simplified version of HTTP protocol, but only transfer JSON values.
+ProcBridge is a super-lightweight IPC (Inter-Process Communication) protocol over TCP socket or Unix domain socket. It enables you to **send and recieve JSON** between processes easily. ProcBridge is much like a simplified version of HTTP protocol, but only transfer JSON values.
 
 Please note that this repo is the **Node.js implementation** of ProcBridge protocol. You can find detailed introduction of ProcBridge protocol in the main repository: [gongzhang/procbridge](https://github.com/gongzhang/procbridge).
 
@@ -17,13 +17,13 @@ Server Side:
 ```javascript
 const { Server } = require('procbridge')
 
-const server = new Server('0.0.0.0', 8000, (method, payload) => {
+const server = new Server('0.0.0.0', 8000, (method, args) => {
   // define remote methods:
   switch (method) {
     case 'echo':
-      return payload
+      return args
     case 'sum':
-      return payload.reduce((sum, next) => { return sum + next })
+      return args.reduce((sum, next) => { return sum + next })
     case 'err':
       throw new Error('an server error')
   }
