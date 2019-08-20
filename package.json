@@ -27,6 +27,14 @@
     "should": "^13.2.3"
   },
   "eslintConfig": {
-    "extends": "standard"
+    "extends": "standard",
+    "globals": {
+      "before": "writable",
+      "after": "writable",
+      "beforeEach": "writable",
+      "afterEach": "writable",
+      "describe": "writable",
+      "it": "writable"
+    }
   }
 }

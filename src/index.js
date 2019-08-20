@@ -3,15 +3,13 @@ const protocol = require('./protocol')
 const { ServerError } = require('./errors')
 const { StatusCode } = require('./const')
 
-
 class Client {
-  
-  constructor(host, port) {
+  constructor (host, port) {
     this.host = host
     this.port = port
   }
-  
-  async request(method, payload) {
+
+  async request (method, payload) {
     const client = new net.Socket()
     client.connect(this.port, this.host, () => {
       protocol.writeRequest(client, method, payload)
@@ -21,25 +19,23 @@ class Client {
       if (statusCode === StatusCode.GOOD_RESPONSE) {
         return payload
       } else {
-        throw new ServerError(message) 
+        throw new ServerError(message)
       }
     } finally {
       client.destroy()
     }
   }
-  
 }
 
 class Server {
-  
-  constructor(host, port, delegate) {
+  constructor (host, port, delegate) {
     this.host = host
     this.port = port
     this.delegate = delegate
     this.server = null
   }
-  
-  start() {
+
+  start () {
     if (this.server !== null) {
       return
     }
@@ -54,7 +50,7 @@ class Server {
         return
       }
 
-      if (ret !== undefined  && ret !== null && typeof ret.then == 'function') {
+      if (ret !== undefined && ret !== null && typeof ret.then === 'function') {
         ret.then(result => {
           protocol.writeGoodResponse(socket, result)
           socket.destroy()
@@ -67,7 +63,7 @@ class Server {
         socket.destroy()
       }
     })
-    
+
     try {
       this.server.listen(this.port, this.host)
     } catch (err) {
@@ -75,17 +71,15 @@ class Server {
       throw err
     }
   }
-  
-  stop() {
+
+  stop () {
     if (this.server === null) {
       return
     }
     this.server.close()
     this.server = null
   }
-  
 }
-
 
 module.exports = {
   Client, Server, ServerError

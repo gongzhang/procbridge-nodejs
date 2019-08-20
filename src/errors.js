@@ -8,17 +8,17 @@ const Messages = {
 }
 
 class ProtocolError extends Error {
-    constructor(message) {
-        super(message)
-        this.name = 'ProtocolError'
-    }
+  constructor (message) {
+    super(message)
+    this.name = 'ProtocolError'
+  }
 }
 
 class ServerError extends Error {
-    constructor(message) {
-        super(message)
-        this.name = 'ServerError'
-    }
+  constructor (message) {
+    super(message)
+    this.name = 'ServerError'
+  }
 }
 
 module.exports = { ProtocolError, ServerError, Messages }
