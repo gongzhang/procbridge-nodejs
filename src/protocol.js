@@ -17,7 +17,7 @@ function writeSocket (socket, statusCode, json) {
 
   // 5. LENGTH (little endian)
   const jsonText = JSON.stringify(json)
-  socket.write(convertIntToLittleEndianBuffer(jsonText.length))
+  socket.write(convertIntToLittleEndianBuffer(Buffer.byteLength(jsonText, 'utf8')))
 
   // 6. JSON
   socket.write(jsonText, 'utf8')
