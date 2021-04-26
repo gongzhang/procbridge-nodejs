@@ -46,6 +46,8 @@ describe('procbridge', () => {
     should(reply).be.eql(['a', 'b'])
     reply = await client.request('echo', { key: 'value' })
     should(reply).be.eql({ key: 'value' })
+    reply = await client.request('echo', { key: 'e😄э' })
+    should(reply).be.eql({ key: 'e😄э' })
   })
 
   it('sum', async () => {
